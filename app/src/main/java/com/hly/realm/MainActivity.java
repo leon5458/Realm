@@ -13,11 +13,12 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
 
     private EditText phone, pw;
+    private Realm realm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Realm realm = Realm.getDefaultInstance();
+        realm = Realm.getDefaultInstance();
         phone = findViewById(R.id.phone);
         pw = findViewById(R.id.pw);
 
