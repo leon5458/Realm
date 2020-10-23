@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                 RealmResults<User> results = realm.where(User.class).findAllAsync();
                 for (User u : results) {
                     Log.e("-------results", u.getPhone() + "-------" + u.getPw());
+                    Toast.makeText(MainActivity.this, "数据:"+u.getPhone()+","+u.getPw(),
+                            Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -59,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 RealmResults<User> results = realm.where(User.class).findAll();
                 realm.beginTransaction();
 //                results.deleteFirstFromRealm(); //删除第一个
-//                results.deleteLastFromRealm();//最后一个数据
+                results.deleteLastFromRealm();//最后一个数据
 //                results.deleteAllFromRealm();//删除所有
 
-                User user =results.get(2); //指定下标删除
-                user.deleteFromRealm();
-
-
+//                User user =results.get(2); //指定下标删除
+//                if (user != null) {
+//                    user.deleteFromRealm();
+//                }
 
                 realm.commitTransaction();
 
@@ -78,9 +81,14 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user = realm.where(User.class).equalTo("phone", "1").findFirst();
+                User user = realm.where(User.class).equalTo("phone", "131").findFirst();
                 realm.beginTransaction();
-                user.setPhone("11111");
+                if (user != null) {
+                    user.setPhone("176");
+                    Toast.makeText(MainActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(MainActivity.this, "这里只是测试填写的手机号错误修改不了", Toast.LENGTH_SHORT).show();
+                }
                 realm.commitTransaction();
             }
         });
